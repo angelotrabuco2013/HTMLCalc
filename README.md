@@ -1,7 +1,7 @@
 # HTMLCalc
 An accurate recreation of the Windows Calculator, made for the web
 
-This fork introduces the following changes:
+This fork will introduce the following changes:
 + Segoe UI font
 + Windows 10 UWP icons
 + Full functionality compared to Uno Calculator (https://calculator.platform.uno/)

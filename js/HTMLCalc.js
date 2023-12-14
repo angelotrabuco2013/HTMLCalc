@@ -2,12 +2,13 @@
  * 
  * Codes by Henry Hale
  * 
+ * Modified by Ângelo
  */
 
-let _gridButton = [];
+let HTMLCalc_gridButtons = [];
 
-_gridButton = [
-	/* first row */
+HTMLCalc_gridButtons = [
+	// first row
 	{
 		name	: 'percent',
 		value 	: '%',
@@ -30,9 +31,9 @@ _gridButton = [
 		type 	: 'reciprocal',
 		style 	: 'style="font-family: \'Lucida Calligraphy\', serif;"'
 	},
-	/* first row */
+	// first row
 
-	/* second row */
+	// second row
 	{
 		name	: 'cdl',
 		value 	: 'CE',
@@ -55,9 +56,9 @@ _gridButton = [
 		type 	: 'operand',
 		code 	: [111, null]
 	},
-	/* second row */
+	// second row
 
-	/* third row */
+	// third row
 	{
 		name	: 'num_7',
 		value 	: 7,
@@ -82,9 +83,9 @@ _gridButton = [
 		type 	: 'operand',
 		code 	: [106, null]
 	},
-	/* third row */
+	// third row
 
-	/* fourth row */
+	// fourth row
 	{
 		name	: 'num_4',
 		value 	: 4,
@@ -109,9 +110,9 @@ _gridButton = [
 		type 	: 'operand',
 		code 	: [109, null]
 	},
-	/* fourth row */
+	// fourth row
 
-	/* fifth row */
+	// fifth row
 	{
 		name	: 'num_1',
 		value 	: 1,
@@ -136,9 +137,9 @@ _gridButton = [
 		type 	: 'operand',
 		code 	: [107, null]
 	},
-	/* fifth row */
+	// fifth row
 
-	/* sixth row */
+	// sixth row
 	{
 		name	: 'add',
 		value 	: '±',
@@ -165,12 +166,12 @@ _gridButton = [
 ];
 
 
-let _calc_main_body = document.querySelector('.calc-main-body');
+let HTMLCalc_calc_main_body = document.querySelector('.calc-main-body');
 
-let drawBtnGrid = function (options) {
-	let btnArr = options.btns || _gridButton;
-	let calMode = options.mode || 'basic';
-	// Modes
+let drawBtnGrid = function(HTMLCalc_options) {
+	let btnArr = HTMLCalc_options.btns || HTMLCalc_gridButtons;
+	let calMode = HTMLCalc_options.mode || 'basic';
+	// modes
 	let cMode = 0;
 	switch(calMode) {
 		case 'basic':
@@ -186,10 +187,10 @@ let drawBtnGrid = function (options) {
 	}
 
 	for (let i = 0; i < btnArr.length; i++) {
-		let _btn_hover = 'w3-hover-light-grey';
-		let _btn_bg = 'w3-glass';
-		let _btn_style = '';
-		let _btn_value = '';
+		let HTMLCalc_btn_hover = 'w3-hover-light-grey';
+		let HTMLCalc_btn_bg = 'w3-glass';
+		let HTMLCalc_btn_style = '';
+		let HTMLCalc_btn_value = '';
 		// hover
 		if (btnArr[i].type=='operand' || btnArr[i].type=='equals') {
 			_btn_hover = 'w3-hover-blue';
@@ -207,10 +208,10 @@ let drawBtnGrid = function (options) {
 			_btn_value = btnArr[i].value;
 		}
 		//if (btnArr[i].mode==cMode) {
-			_calc_main_body.innerHTML += '<button style="'+_btn_style+'" class="w3-button '+btnArr[i].type+' '+_btn_bg+' '+_btn_hover+'" value="'+_btn_value+'">'+btnArr[i].value+'</button>';
-		/*} else {
-			continue;
-		}*/
+			// _calc_main_body.innerHTML += '<button style="'+_btn_style+'" class="w3-button '+btnArr[i].type+' '+_btn_bg+' '+_btn_hover+'" value="'+_btn_value+'">'+btnArr[i].value+'</button>';
+		// } else {
+			// continue;
+		// } 
 	}
 
 }
@@ -219,7 +220,7 @@ let drawBtnGrid = function (options) {
 // display
 drawBtnGrid({
 	mode : 'basic',
-	btns : _gridButton
+	btns : HTMLCalc_gridButtons
 });
 
 // events
@@ -231,17 +232,17 @@ let addNewValue = false;
 
 // click
 // numbers
-let _numbers = document.querySelectorAll('.number');
-_numbers.forEach(function(b){
-	b.addEventListener('click', function(){
+let HTMLCalc_numbers = document.querySelectorAll('.number');
+HTMLCalc_numbers.forEach(function(HTMLCalc_click_wPH4E9JDBZ){
+	HTMLCalc_click_wPH4E9JDBZ.addEventListener('click', function(){
 		addInputValue(b.value);
 		addNewValue = false;
 	});
 });
 
 // decimal
-let _dot = document.querySelector('.dot');
-_dot.addEventListener('click', function(){
+let HTMLCalc_dot = document.querySelector('.dot');
+HTMLCalc_dot.addEventListener('click', function(){
 	if (currentDisplay.value.indexOf('.') > -1) {
 		return;
 	}
@@ -249,14 +250,14 @@ _dot.addEventListener('click', function(){
 });
 
 // operators
-let _operands = document.querySelectorAll('.operand');
-_operands.forEach(function(c){
+let HTMLCalc_operands = document.querySelectorAll('.operand');
+HTMLCalc_operands.forEach(function(HTMLCalc_display){
 	c.addEventListener('click', function(){
 		
 		if (solutionDisplay.value==0) {
-			solutionDisplay.value = " " + currentDisplay.value + " " + c.value + " ";
+			solutionDisplay.value = "" + currentDisplay.value + "" + HTMLCalc_display.value + "";
 		} else {
-			solutionDisplay.value += " " +  currentDisplay.value + " " + c.value + " ";	
+			solutionDisplay.value += "" +  currentDisplay.value + "" + HTMLCalc_display.value + "";	
 		}
 		evalAndReturn(sanitizeStep(solutionDisplay.value));
 		addNewValue = true;
@@ -264,29 +265,29 @@ _operands.forEach(function(c){
 });
 
 // negative(x)
-let negPos = document.querySelector('.negpos');
-negPos.addEventListener('click', function(){
+let HTMLCalc_negPos = document.querySelector('.negpos');
+HTMLCalc_negPos.addEventListener('click', function(){
 	let aValue = currentDisplay.value;
 	if(aValue != 0){
-		let _negx = aValue.split('');
+		let HTMLCalc_negx = aValue.split('');
 		if (aValue.includes('-')) {
-			_negx.shift();
+			HTMLCalc_negx.shift();
 		} else {
-			_negx.unshift('-');
+			HTMLCalc_negx.unshift('-');
 		}
 		currentDisplay.value = _negx.join('');
 	}
 });
 
 // decimal
-let _percent = document.querySelector('.percent');
-_percent.addEventListener('click', function(){
+let HTMLCalc_percent = document.querySelector('.percent');
+HTMLCalc_percent.addEventListener('click', function(){
 	currentDisplay.value /= 100;
 });
 
 // square root
-let _sqroot = document.querySelector('.sqroot');
-_sqroot.addEventListener('click', ()=>{
+let HTMLCalc_sqroot = document.querySelector('.sqroot');
+HTMLCalc_sqroot.addEventListener('click', ()=>{
 	let aValue = currentDisplay.value;
 	if(aValue == '' || aValue == 0){
 		currentDisplay.value = 0;
@@ -296,8 +297,8 @@ _sqroot.addEventListener('click', ()=>{
 });
 
 // square x^2
-let _square = document.querySelector('.square');
-_square.addEventListener('click', ()=>{
+let HTMLCalc_square = document.querySelector('.square');
+HTMLCalc_square.addEventListener('click', ()=>{
 	const aValue = currentDisplay.value;
 	if(aValue == '' || aValue == 0){
 		currentDisplay.value = 0;
@@ -307,8 +308,8 @@ _square.addEventListener('click', ()=>{
 });
 
 // reciprocal
-let _reciprocal = document.querySelector('.reciprocal');
-_reciprocal.addEventListener('click', ()=>{
+let HTMLCalc_reciprocal = document.querySelector('.reciprocal');
+HTMLCalc_reciprocal.addEventListener('click', ()=>{
 	const aValue = currentDisplay.value;
 	if(aValue == '' || aValue == 0){
 		currentDisplay.value = 0;
@@ -318,18 +319,18 @@ _reciprocal.addEventListener('click', ()=>{
 });
 
 // delete
-let _clearBtn = document.querySelectorAll('.clear');
+let HTMLCalc_clearBtn = document.querySelectorAll('.clear');
 
-_clearBtn[0].addEventListener('click', function(){
+HTMLCalc_clearBtn[0].addEventListener('click', function(){
 	currentDisplay.value = '0';
 });
 
-_clearBtn[1].addEventListener('click', function(){
+HTMLCalc_clearBtn[1].addEventListener('click', function(){
 	currentDisplay.value = '0';
 	solutionDisplay.value = null;
 });
 
-_clearBtn[2].addEventListener('click', function(){
+HTMLCalc_clearBtn[2].addEventListener('click', function(){
 	const solString = currentDisplay.value;
 	if (!solString || typeof solString == 'undefined' || solString==null || solString.length <= 1) {
 		currentDisplay.value = '0';
@@ -344,17 +345,17 @@ _clearBtn[2].addEventListener('click', function(){
 });
 
 //evaluate
-let _evalBtn = document.querySelectorAll('.equals');
-_evalBtn[0].addEventListener('click', function(){
+let HTMLCalc_evalBtn = document.querySelectorAll('.equals');
+HTMLCalc_evalBtn[0].addEventListener('click', function(){
 	if (currentDisplay.value!='0' && solutionDisplay.value!='') {
 		solutionDisplay.value += currentDisplay.value;
 		evalAndReturn(solutionDisplay.value);
 	}
-	// helper to prevent a bug which a number is click after this action
+	// helper to prevent a bug which a number is clicked after this action
 	solutionDisplay.value = null;
 });
 
-/* HELPERS */
+// helpers
 let addInputValue = function (cval) {
 	let _maxLength = currentDisplay.getAttribute('maxlength') || 9;
 	if (currentDisplay.value.length > _maxLength) {
@@ -464,7 +465,7 @@ let handleLayoutNow = function() {
 
 	let _layoutDiv = document.getElementById('layoutDiv');
   	if (_isMobile) {
-    	// if we are on Mobile OS we activate 12 Block CSS Grid Layout
+    	// if we are on Mobile (Android/iOS) we activate 12 Block CSS Grid Layout
     	_layoutDiv.classList+=` w3\-row `;
 		if (_layoutDiv.hasChildNodes()) {
 			//console.log('hasChildNodes');
@@ -528,7 +529,7 @@ let createHistoryPill = function (_data) {
 	return;
 }
 
-/* toggle dropdown */
+// toggle dropdown
 function w3_dropdown(id) {
   let x = document.getElementById(id);
   if (x.className.indexOf("w3-show") == -1) {  
@@ -538,7 +539,7 @@ function w3_dropdown(id) {
   }
 }
 
-/* toggle side menu */
+// toggle side menu
 let openMoreModal = document.getElementById('openMoreModal');
 let closeMoreModal = document.getElementById('closeMoreModal');
 let myOverlay = document.getElementById('myOverlay');
@@ -556,7 +557,7 @@ myOverlay.addEventListener('click', function () {
 })
 
 
-/* FullScreen */
+// FullScreen
 let toggleFullScreen = function () {
         if (
         		(document.fullScreenElement && document.fullScreenElement !== null) ||    
@@ -599,28 +600,28 @@ if (_fullScreenBtn) {
 	});
 }
 
-/* Dark Mode / Light Mode */
+// Dark Mode or Light Mode
 let _htmlTag = document.documentElement;
-/*
-	using body gave me a bug on my Android, 
-	to fix that i used html tag and
-	assign the darkmode class to html 
 
-	LIKE =>
+	// using body gave me a bug on my Android, 
+	// to fix that i used html tag and
+	// assign the darkmode class to html 
 
-		html.calc-darkmode,
-		.calc-darkmode body 
-		{
-			background: #111;
-  			color: #ff974a;
-		}
+	// LIKE =>
 
-	...
-*/
-let _htmlBody = document.body;
-let _toggleDLMode = document.getElementById('darkModeBtn');
-if (_toggleDLMode) {
-	_toggleDLMode.addEventListener('click',function(){
+		// html.calc-darkmode,
+		// .calc-darkmode body 
+		// {
+			// background: #111;
+  			// color: #ff974a;
+		// }
+
+	// ...
+
+let HTMLCalc_htmlBody = document.body;
+let HTMLCalc_toggleDLMode = document.getElementById('darkModeBtn');
+if (HTMLCalc_toggleDLMode) {
+	HTMLCalc_toggleDLMode.addEventListener('click',function(){
 		_htmlTag.classList.toggle('calc-darkmode');
 		if (_htmlTag.classList.contains('calc-darkmode')) {
 			// console.log('Dark Mode');
@@ -630,7 +631,7 @@ if (_toggleDLMode) {
 				try {
 					localStorage.setItem("calc-dark-mode", "true");
 				} catch (error){
-				  	//console.log('Enable cookies in your browser');
+				  	console.log('Please enable cookies in your browser, for theme switching to function properly.');
 				}
 			}
 		} else if (_htmlTag.classList.contains('w3-light-grey')) {
@@ -641,14 +642,14 @@ if (_toggleDLMode) {
 				try {
 					localStorage.setItem("calc-dark-mode", "false");
 				} catch (error){
-				  	//console.log('Enable cookies in your browser');
+				  	console.log('Please enable cookies in your browser, for theme switching to function properly.');
 				} 
 			}
 		}
 	});
 } 
 
-/* store Dark Mode value in Local Storage */
+// store Dark Mode value in Local Storage
 window.addEventListener('load', function () {
 	if (localStorage && localStorage.getItem("calc-dark-mode") === "true") { 	
 		if (_toggleDLMode) {
@@ -659,43 +660,43 @@ window.addEventListener('load', function () {
 
 
 
-/* ADJUSTMENTS */
+// ADJUSTMENTS
 
-/* History Shade for Mobile */
-let _toggleHistoryShade = document.getElementById('toggleHistoryShade');
-let _historyShade = document.getElementById('historyShade');
-let _buttonShade = document.getElementById('buttonShade');
-let _historyVClear = document.getElementById('historyVClear');
-let _historyShadeBack = document.getElementById('toggleHistoryShadeBack');
-if (_toggleHistoryShade && _historyShade && _buttonShade && _historyVClear && _toggleHistoryShade && _historyShadeBack ) {
-	_toggleHistoryShade.addEventListener('click',function(){
-		if (_historyShade.classList.contains(`w3-hide-small`)) {
+// History Shade for Mobile
+let HTMLCalc_toggleHistoryShade = document.getElementById('toggleHistoryShade');
+let HTMLCalc_historyShade = document.getElementById('historyShade');
+let HTMLCalc_buttonShade = document.getElementById('buttonShade');
+let HTMLCalc_historyVClear = document.getElementById('historyVClear');
+let HTMLCalc_historyShadeBack = document.getElementById('toggleHistoryShadeBack');
+if (HTMLCalc_toggleHistoryShade && HTMLCalc_historyShade && HTMLCalc_buttonShade && HTMLCalc_historyVClear && HTMLCalc_toggleHistoryShade && HTMLCalc_historyShadeBack ) {
+	HTMLCalc_toggleHistoryShade.addEventListener('click',function(){
+		if (HTMLCalc_historyShade.classList.contains(`w3-hide-small`)) {
 			let _tArr = _historyShade.className.split(' ');
 			_tArr.pop();
-			_historyShade.className = _tArr.join(' ');
+			HTMLCalc_historyShade.className = _tArr.join(' ');
 		}
-		_historyVClear.style.display = 'block';
-		_toggleHistoryShade.style.display = 'none';
-		_historyShadeBack.style.display = 'inline-block';
-		_buttonShade.style.display = 'none';
-		_historyShade.style.display = 'block';
+		HTMLCalc_historyVClear.style.display = 'block';
+		HTMLCalc_toggleHistoryShade.style.display = 'none';
+		HTMLCalc_historyShadeBack.style.display = 'inline-block';
+		HTMLCalc_buttonShade.style.display = 'none';
+		HTMLCalc_historyShade.style.display = 'block';
 	});
 
-	_historyShadeBack.addEventListener('click',function() {
-		_historyVClear.style.display = 'none';
-		_toggleHistoryShade.style.display = 'block';
-		_buttonShade.style.display = 'block';
-		_historyShade.style.display = 'none';
-		_historyShadeBack.style.display = 'none';
+	HTMLCalc_historyShadeBack.addEventListener('click',function() {
+		HTMLCalc_historyVClear.style.display = 'none';
+		HTMLCalc_toggleHistoryShade.style.display = 'block';
+		HTMLCalc_buttonShade.style.display = 'block';
+		HTMLCalc_historyShade.style.display = 'none';
+		HTMLCalc_historyShadeBack.style.display = 'none';
 	});
 
-	_historyVClear.addEventListener('click',function() {
+	HTMLCalc_historyVClear.addEventListener('click',function() {
 		clearHistoryBtn.click();
 	});
 }
 
 
-/* Keyboard Control */
+// Keyboard Control
 window.addEventListener('keydown',function (e) {
 	
 	//console.log(e.which);
@@ -709,20 +710,15 @@ window.addEventListener('keydown',function (e) {
 		_theCharCode = e.keyCode;
 	}
 
-	/*
-	// mapping
-	// has a bug, it doesn't return new array
-
-	let _expectedKeys = _gridButton.map(function (value, index, arr) {
-		if (value.code) {
+	
+// let _expectedKeys = _gridButton.map(function (value, index, arr) {
+		// if (value.code) {
 			//console.log(value);
-			return value.code;
-		}
-	});*/
+			// return value.code;
+		// }
+	// });
 
-	/* 
 	// filtering
-	*/
 	let _expectedKeys = _gridButton.filter(function (nxt) {
 		return nxt && nxt.code;	
 	});
@@ -760,8 +756,8 @@ window.addEventListener('keydown',function (e) {
 				if ( (_expectedKeys[i].code[1] ==  _theCharCode) ) {
 
 					// Cloned the first case
-					/* general flow to capture */
-					//console.log(_expectedKeys[i].name);
+					// general flow to capture
+					// console.log(_expectedKeys[i].name);
 					let _idElem = null;
 					if(_expectedKeys[i].type == 'number'){
 						_idElem = '.number[value="'+_expectedKeys[i].value+'"]';
